@@ -3,8 +3,8 @@ while len(phrase) < 10:
     print('Фраза слишком короткая!')
     phrase = input("Введите фразу: ")
 
-print("Первые 4 символа: ", phrase[:4:1])
-print("Последние 4 символа: ", phrase[-4::1])
+print("Первые 4 символа: ", phrase[:4:])
+print("Последние 4 символа: ", phrase[-4::])
 if len(phrase) % 2 != 0:
     print("Символ по середине: ", phrase[len(phrase) // 2])
 else:

@@ -8,7 +8,6 @@ while len(a) != 6:
 
 for i in range(len(a)):
     a[i] = int(a[i])
-    ######
 
 print("Четвёртый элемент: ", a[3])
 print("В обратном порядке: ", a[::-1])
