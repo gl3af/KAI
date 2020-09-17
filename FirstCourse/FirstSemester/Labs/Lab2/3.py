@@ -1,10 +1,13 @@
 string = input("Введите 6 чисел через запятую: ")
-a = []
-i = 0
+a = string.split(',')
 
-while i < len(string):
-    a.append(int(string[i]))
-    i += 2
+while len(a) != 6:
+    print('Элементов должно быть 6!')
+    string = input("Введите 6 чисел через запятую: ")
+    a = string.split(',')
+
+for i in range(len(a)):
+    a[i] = int(a[i])
 
 print("Четвёртый элемент: ", a[3])
 print("В обратном порядке: ", a[::-1])

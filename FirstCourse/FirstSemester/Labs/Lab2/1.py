@@ -1,14 +1,19 @@
 # Вариант 5
-x = -1
-d = 0.1
+x = float(input('Введите  -1<=x<=1: '))
+while abs(x) > 1:
+    print('Некорректный  ввод!')
+    x = float(input('Введите -1<=x<=1: '))
 
-while x <= 1:
-    sum = 0
-    for i in range(100000):
-        if i % 2 == 0:
-            sum += round(x, 1) ** (2*i + 1) / (2 * i + 1)
-        else:
-            sum -= round(x, 1) ** (2*i + 1) / (2 * i + 1)
+n = int(input('Введите натуральное число n: '))
+while n <= 0:
+    print('Некорректный  ввод! Необходимо ввести натуральное число!')
+    n = int(input('Введите n: '))
 
-    print("X: ", round(x, 1), " y(x): ", round(sum,2))
-    x += d
+previous_element = x
+step = x ** 2
+sum_ = previous_element
+for i in range(1, n + 1):
+    sum_ += ((-1) * previous_element * step / (2 * i + 1))
+    previous_element *= -1 * step
+
+print(f'Сумма ряда для x = {x} при n = {n} равна {sum_}')
