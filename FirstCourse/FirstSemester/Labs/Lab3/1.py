@@ -10,8 +10,8 @@ for i in range(len(seq)):
     if seq[i].isalpha():
         word += seq[i]
     elif len(word) != 0:
-            words.append(word)
-            word = ''
+        words.append(word)
+        word = ''
 
 print(words)
 len_words = [len(words[i]) for i in range(len(words))]
@@ -22,4 +22,3 @@ double_seq = ''
 for i in range(len(new_seq)):
     double_seq += new_seq[i] * 2
 print("Строка без *, удвоенная в каждой позиции: ", double_seq)
-
