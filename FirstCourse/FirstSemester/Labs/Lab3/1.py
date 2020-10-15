@@ -14,7 +14,7 @@ for i in range(len(seq)):
         word = ''
 
 print(words)
-len_words = [len(words[i]) for i in range(len(words))]
+len_words = [len(item) for item in words]
 print("Кол-во слов: ", len(words))
 print("Длина самого короткого: ", min(len_words), "\nДлина самого длинного: ", max(len_words))
 new_seq = seq.replace('*', '')
