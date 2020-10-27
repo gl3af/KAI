@@ -6,6 +6,11 @@ def fill_graph(n):
         a, b = input().split()
         a = int(a)
         b = int(b)
+        while not(0 <= a < n and 0 <= b < n):
+            print("Неверный ввод, введите пару еще раз")
+            a, b = input().split()
+            a = int(a)
+            b = int(b)
         graph[a][b] = 1
         graph[b][a] = 1
     return graph
