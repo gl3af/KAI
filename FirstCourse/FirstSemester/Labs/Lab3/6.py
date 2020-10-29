@@ -26,5 +26,11 @@ for x in range(0, 3):
                 k = z
                 t_max = t[x][y][z]
 
+for z in range(0, 7):
+    for x in range(0, 3):
+        for y in range(0, 5):
+            print(t[x][y][z], end=" ")
+        print()
+    print()
 print(f"Максимум: {t_max}, координаты: ({i}, {j}, {k})")
 
