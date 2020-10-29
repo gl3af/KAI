@@ -1,8 +1,9 @@
 # 1 вариант
 def fill_graph(n):
     graph = [[0] * n for i in range(n)]
-    print("Введите n пар вершин (нумерация с 0):")
-    for i in range(n):
+    paths = int(input("Введите количество рёбер m: "))
+    print("Введите m пар вершин (нумерация с 0):")
+    for i in range(paths):
         a, b = input().split()
         a = int(a)
         b = int(b)
