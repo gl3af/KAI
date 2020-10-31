@@ -20,6 +20,7 @@ def action(event):
 
 
 root = Tk()
+root.title("Traffic Light")
 c = Canvas(root, width=200, height=600, bg="black")
 c.pack()
 circle_top = c.create_oval(0, 0, 200, 200, fill="grey")
