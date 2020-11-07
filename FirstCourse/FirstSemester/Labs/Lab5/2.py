@@ -16,27 +16,24 @@ def menu(graph):
             print("Доступные точки: ")
             for destination in destinations_list:
                 print(destination)
-            way = input("Введите пункт отправки и пункт названчения через пробел: ")
+            way = input("Введите пункт отправки и пункт названчения через пробел: ").lower()
             dests = []
             indexes = []
             for dest in destinations_list:
                 if dest in way:
                     dests.append(dest)
                     indexes.append(way.index(dest))
-            start = dests[indexes.index(min(indexes))]
-            stop = dests[indexes.index(max(indexes))]
-
-            while not (start in destinations_list and stop in destinations_list):
+            while len(dests) != 2:
                 print("Неверный ввод, попробуйте еще раз")
-                way = input("Введите пункт отправки и пункт названчения через пробел: ")
+                way = input("Введите пункт отправки и пункт названчения через пробел: ").lower()
                 dests = []
                 indexes = []
                 for dest in destinations_list:
                     if dest in way:
                         dests.append(dest)
                         indexes.append(way.index(dest))
-                start = dests[indexes.index(min(indexes))]
-                stop = dests[indexes.index(max(indexes))]
+            start = dests[indexes.index(min(indexes))]
+            stop = dests[indexes.index(max(indexes))]
             start_pos = destinations_list.index(start.lower())
             stop_pos = destinations_list.index(stop.lower())
             d = dijkstra(graph, start_pos)
@@ -44,7 +41,9 @@ def menu(graph):
             print(f"Ваша дорога займёт {round(d[stop_pos], 2)} км")
             print("Ваш путь: ", end=" ")
             for dot in path:
-                print(f"{destinations_list[dot]} ->", end=" ")
+                print(f"{destinations_list[dot]} ", end=" ")
+                if dot != path[len(path) - 1]:
+                    print("->", end=" ")
             print()
 
 

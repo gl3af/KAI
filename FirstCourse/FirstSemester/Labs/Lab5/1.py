@@ -23,6 +23,6 @@ with open('output.txt', 'w', encoding='utf-8') as file_out:
     word_to_delete = input("Введите слово для удаления: ")
     for word_line in words_lines:
         for word in word_line:
-            if word != word_to_delete:
+            if word_to_delete not in word:
                 file_out.write(word + " ")
         file_out.write('\n')
