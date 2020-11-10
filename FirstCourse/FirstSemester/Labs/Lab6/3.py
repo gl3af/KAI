@@ -8,14 +8,14 @@ def action(event):
         c.itemconfig(circle_top, fill="red")
         time.sleep(7)
         c.itemconfig(circle_mid, fill="yellow")
-        time.sleep(1)
+        time.sleep(2)
         c.itemconfig(circle_top, fill="grey")
         c.itemconfig(circle_mid, fill="grey")
         c.itemconfig(circle_bot, fill="green")
         time.sleep(5)
         c.itemconfig(circle_bot, fill="grey")
         c.itemconfig(circle_mid, fill="yellow")
-        time.sleep(1)
+        time.sleep(2)
         c.itemconfig(circle_mid, fill="grey")
 
 
