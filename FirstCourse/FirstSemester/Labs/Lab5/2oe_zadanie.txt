@@ -1,0 +1,15 @@
+inf	3000	inf	inf	inf	inf	inf	inf	inf	inf	inf	inf	inf	inf	inf
+3000	inf	700	inf	inf	inf	inf	inf	inf	inf	inf	inf	inf	inf	inf
+170	700	inf	350	inf	inf	inf	inf	inf	inf	210	inf	inf	inf	inf
+inf	inf	350	inf	500	inf	inf	inf	inf	3	inf	inf	inf	inf	inf
+190	inf	inf	1500	inf	500	inf	inf	inf	inf	inf	inf	inf	inf	inf
+inf	inf	inf	inf	1500	inf	inf	inf	inf	inf	inf	inf	inf	inf	inf
+inf	inf	inf	inf	inf	1500	1500	900	1500	inf	inf	inf	inf	inf	inf
+inf	inf	inf	inf	inf	inf	inf	inf	inf	inf	inf	inf	inf	inf	inf
+inf	inf	inf	inf	inf	inf	900	inf	inf	700	inf	inf	inf	inf	inf
+inf	inf	inf	inf	inf	inf	1500	inf	700	inf	40	inf	inf	inf	inf
+inf	inf	inf	inf	inf	inf	inf	inf	inf	40	inf	2000	800	inf	inf
+inf	inf	inf	inf	inf	inf	inf	inf	inf	inf	2000	inf	inf	inf	inf
+inf	inf	inf	inf	inf	inf	inf	inf	inf	inf	800	inf	inf	800	inf
+inf	inf	inf	inf	inf	inf	inf	inf	inf	inf	inf	inf	800	inf	200
+inf	inf	inf	inf	inf	inf	inf	inf	inf	inf	inf	inf	inf	2000	inf
