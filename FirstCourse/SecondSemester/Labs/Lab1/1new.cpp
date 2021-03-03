@@ -5,7 +5,16 @@
 
 const double pi = 3.14;
 
-void ConsoleWriter(double v)
+void menu()
+{
+    std::cout << "Доступные команды:\n" <<
+    "0 - Вывод результата в файл\n" <<
+    "1 - Вывод результата в консоль\n" <<
+    "2 - Выход\n" <<
+    "Ваш выбор: ";
+}
+
+void console_writer(double v)
 {
     for (double h = 0.5; h <= 5; h += 0.5)
     {
@@ -14,7 +23,7 @@ void ConsoleWriter(double v)
     }
 }
 
-void FileWriter(double v)
+void file_writer(double v)
 {
     std::ofstream file;
     file.open("rez.txt");
@@ -32,31 +41,78 @@ void FileWriter(double v)
 int main()
 {
     double v = 1.0f;
-    int key;
-    while(true)
+    int key{}, inner_key{};
+    bool is_active = true;
+    while(is_active)
     {
-        std::cout << "Добрый день! Пожалуйста, введите:\n" <<
-        "0, чтобы получить результат в файл\n" <<
-        "1, чтобы получить результат в консоль\n" <<
-        "2, чтобы выйти.\n"
-        "Ваш ввод: ";
+        menu();
         std::cin >> key;
         switch(key)
         {
             case 0:
             {
-                FileWriter(v);
+                file_writer(v);
+                bool wrong_input = true;
+                while(wrong_input)
+                {
+                    std::cout << "Хотите продолжить? 1 - Да, 0 - Нет\n" << "Ваш выбор: ";
+                    std::cin >> inner_key;
+                    switch(inner_key)
+                    {
+                        case 1:
+                        {
+                            wrong_input = false;
+                            break;
+                        }
+                        case 0:
+                        {
+                            wrong_input = false;
+                            is_active = false;
+                            break;
+                        }
+                        default:
+                        {
+                            std::cout << "Неверный ввод! Повторите снова\n";
+                            break;
+                        }
+                    }
+                }
                 break;
             }
             case 1:
             {
-                ConsoleWriter(v);
+                console_writer(v);
+                bool wrong_input = true;
+                while(wrong_input)
+                {
+                    std::cout << "Хотите продолжить? 1 - Да, 0 - Нет\n" << "Ваш выбор: ";
+                    std::cin >> inner_key;
+                    switch(inner_key)
+                    {
+                        case 1:
+                        {
+                            wrong_input = false;
+                            break;
+                        }
+                        case 0:
+                        {
+                            wrong_input = false;
+                            is_active = false;
+                            break;
+                        }
+                        default:
+                        {
+                            std::cout << "Неверный ввод! Повторите снова\n";
+                            break;
+                        }
+                    }
+                }
                 break;
             }
             case 2:
             {
-                std::cout << "Хорошего дня!\n";
-                return 0;
+                is_active = false;
+                break;
             }
             default:
             {
@@ -65,5 +121,6 @@ int main()
             }
         }
     }
+    std::cout << "Хорошего дня!\n";
     return 0;
 }
