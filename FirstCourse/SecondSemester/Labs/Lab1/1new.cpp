@@ -10,13 +10,12 @@ void menu()
     std::cout << "Доступные команды:\n" <<
     "0 - Вывод результата в файл\n" <<
     "1 - Вывод результата в консоль\n" <<
-    "2 - Выход\n" <<
     "Ваш выбор: ";
 }
 
 void console_writer(double v)
 {
-    for (double h = 0.5; h <= 5; h += 0.5)
+    for (double h = 0.5; h <= 5.0; h += 0.5)
     {
         double r = sqrt(v / (pi * h));
         std::cout << "Радиус цилиндра с объемом 1 при высоте h = " << h << " равен " << r << "\n";
@@ -28,7 +27,7 @@ void file_writer(double v)
     std::ofstream file;
     file.open("rez.txt");
     if (file.is_open())
-        for (double h = 0.5; h <= 5; h += 0.5)
+        for (double h = 0.5; h <= 5.0; h += 0.5)
         {
             double r = sqrt(v / (pi * h));
             file << "Радиус цилиндра с объемом 1 при высоте h = " << h << " равен " << r << "\n";
@@ -41,7 +40,7 @@ void file_writer(double v)
 int main()
 {
     double v = 1.0f;
-    int key{}, inner_key{};
+    int key = 0, inner_key = 0;
     bool is_active = true;
     while(is_active)
     {
@@ -107,11 +106,6 @@ int main()
                         }
                     }
                 }
-                break;
-            }
-            case 2:
-            {
-                is_active = false;
                 break;
             }
             default:
