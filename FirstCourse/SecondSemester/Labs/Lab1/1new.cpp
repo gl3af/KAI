@@ -4,6 +4,9 @@
 #include <cmath>
 
 const double pi = 3.14;
+const double start = 0.5f;
+const double stop = 5.0f;
+const double step = 0.5f;
 
 void menu()
 {
@@ -15,7 +18,7 @@ void menu()
 
 void console_writer(double v)
 {
-    for (double h = 0.5; h <= 5.0; h += 0.5)
+    for (double h = start; h <= stop; h += step)
     {
         double r = sqrt(v / (pi * h));
         std::cout << "Радиус цилиндра с объемом 1 при высоте h = " << h << " равен " << r << "\n";
@@ -24,96 +27,64 @@ void console_writer(double v)
 
 void file_writer(double v)
 {
-    std::ofstream file;
-    file.open("rez.txt");
-    if (file.is_open())
-        for (double h = 0.5; h <= 5.0; h += 0.5)
-        {
-            double r = sqrt(v / (pi * h));
-            file << "Радиус цилиндра с объемом 1 при высоте h = " << h << " равен " << r << "\n";
-        }
-    else
-        std::cout << "Error!\n";
-    file.close();
+    std::ofstream file("rez.txt");
+    for (double h = start; h <= stop; h += step)
+    {
+        double r = sqrt(v / (pi * h));
+        file << "Радиус цилиндра с объемом 1 при высоте h = " << h << " равен " << r << "\n";
+    }
 }
 
 int main()
 {
     double v = 1.0f;
-    int key = 0, inner_key = 0;
+    std::string key, inner_key;
     bool is_active = true;
     while(is_active)
     {
         menu();
         std::cin >> key;
-        switch(key)
+        if(key == "0")
         {
-            case 0:
+            file_writer(v);
+            while(true)
             {
-                file_writer(v);
-                bool wrong_input = true;
-                while(wrong_input)
+                std::cout << "Хотите продолжить? 1 - Да, 0 - Нет\nВаш выбор: ";
+                std::cin >> inner_key;
+                if(inner_key == "1")
                 {
-                    std::cout << "Хотите продолжить? 1 - Да, 0 - Нет\n" << "Ваш выбор: ";
-                    std::cin >> inner_key;
-                    switch(inner_key)
-                    {
-                        case 1:
-                        {
-                            wrong_input = false;
-                            break;
-                        }
-                        case 0:
-                        {
-                            wrong_input = false;
-                            is_active = false;
-                            break;
-                        }
-                        default:
-                        {
-                            std::cout << "Неверный ввод! Повторите снова\n";
-                            break;
-                        }
-                    }
+                    std::cout << "Отлично!\n";
+                    break;
                 }
-                break;
-            }
-            case 1:
-            {
-                console_writer(v);
-                bool wrong_input = true;
-                while(wrong_input)
+                else if(inner_key == "0")
                 {
-                    std::cout << "Хотите продолжить? 1 - Да, 0 - Нет\n" << "Ваш выбор: ";
-                    std::cin >> inner_key;
-                    switch(inner_key)
-                    {
-                        case 1:
-                        {
-                            wrong_input = false;
-                            break;
-                        }
-                        case 0:
-                        {
-                            wrong_input = false;
-                            is_active = false;
-                            break;
-                        }
-                        default:
-                        {
-                            std::cout << "Неверный ввод! Повторите снова\n";
-                            break;
-                        }
-                    }
+                    is_active = false;
+                    break;
                 }
-                break;
-            }
-            default:
-            {
-                std::cout << "Такая команда отсутствует, введите еще раз\n";
-                break;
+                else std::cout << "Команда отсутствует! Попробуйте снова!\n";
             }
         }
+        else if(key == "1")
+        {
+            console_writer(v);
+            while(true)
+            {
+                std::cout << "Хотите продолжить? 1 - Да, 0 - Нет\nВаш выбор: ";
+                std::cin >> inner_key;
+                if(inner_key == "1")
+                {
+                    std::cout << "Отлично!\n";
+                    break;
+                }
+                else if(inner_key == "0")
+                {
+                    is_active = false;
+                    break;
+                }
+                else std::cout << "Команда отсутствует! Попробуйте снова!\n";
+            }
+        }
+        else std::cout << "Команда отсутствует! Попробуйте снова!\n";
     }
     std::cout << "Хорошего дня!\n";
     return 0;

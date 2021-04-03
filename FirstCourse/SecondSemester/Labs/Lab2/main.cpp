@@ -15,7 +15,7 @@ bool valid_input(std::string& input)
         if (isdigit(c))
             ++amount_of_digits;
 
-    return amount_of_digits == input.size();
+    return amount_of_digits == input.size() and input[0] != '0';
 }
 
 void file_reader(std::string path, std::string& read_to)
@@ -32,9 +32,9 @@ void file_writer(std::string path, std::string& to_write)
     file.close();
 }
 
-int input_menu()
+std::string input_menu()
 {
-    int key = 0;
+    std::string key;
     std::cout << "Доступные команды: \n" <<
         "0 - Ввод данных из консоли\n"  <<
         "1 - Ввод данных из файла 'input.txt'\n" <<
@@ -44,9 +44,9 @@ int input_menu()
     return key;
 }
 
-int output_menu()
+std::string output_menu()
 {
-    int key = 0;
+    std::string key;
     std::cout << "Доступные команды: \n" <<
         "0 - Вывод результата в консоль\n"  <<
         "1 - Вывод результата в файл 'output.txt'\n" <<
@@ -71,127 +71,81 @@ std::string symbol_remover(std::string& input)
 int main()
 {
     bool is_working = true;
-    int key;
-    int inner_key;
-    std::string input = "wrong input";
+    std::string key, inner_key;
+    std::string input = "something";
     while(is_working)
     {
         if(input_way == "")
         {
             key = input_menu();
-            switch (key)
+            if(key == "0")
             {
-                case 0:
+                input_way = "console";
+                while(true)
                 {
-                    input_way = "console";
                     std::cout << "Введите число для редактирования: ";
                     std::cin >> input;
-                    while(!valid_input(input))
-                    {
-                        std::cout << "К сожалению это не число! Повторите ваш ввод!\n";
-                        std::cout << "Введите число для редактирования: ";
-                        std::cin >> input;
-                    }
-                    break;
-                }
-                case 1:
-                {
-                    input_way = "file";
-                    file_reader(input_path, input);
-                    while(!valid_input(input))
-                    {
-                        std::cout << "К сожалению это не число! Измените запись в файле и перезапустите программу!\n";
-                        is_working = false;
-                        break;
-                    }
-                    break;
-                }
-                default:
-                {
-                    std::cout << "Такая команда отсутствует! Повторите попытку!\n";
-                    break;
+                    if(valid_input(input)) break;
+                    else std::cout << "Это не число! Попробуйте снова!\n";
                 }
             }
+            else if(key == "1")
+            {
+                input_way = "file";
+                file_reader(input_path, input);
+                if(!valid_input(input)) 
+                {
+                    std::cout << "В файле не число! Измените содержимое файла и перезапустите программу!\n";
+                    is_working = false;
+                }
+            }
+            else std::cout << "Команда отсутствует! Попробуйте снова!\n";
         }
         else
         {
             key = output_menu();
-            switch (key)
+            input = symbol_remover(input);
+            if(key == "0")
             {
-                case 0:
+                std::cout << "Результат: " + input + "\n";
+                if(input_way == "file")
+                    is_working = false;
+                else
                 {
-                    std::cout << "Результат: " + symbol_remover(input) << "\n";
-                    if(input_way == "file")
+                    std::cout << "Хотите продолжить? 1 - Да, 0 - Нет\nВаш выбор: ";
+                    std::cin >> inner_key;
+                    if(inner_key == "1")
                     {
+                        input_way = "";
+                        std::cout << "Отлично!\n";
+                    }
+                    else if(inner_key == "0")
                         is_working = false;
-                    }
-                    else
-                    {
-                        std::cout << "Хотите продолжить? 1 - Да; 0 - Нет\nВаш выбор: ";
-                        std::cin >> inner_key;
-                        switch (inner_key)
-                        {
-                            case 1:
-                            {
-                                input_way = "";
-                                std::cout << "Отлично!\n";
-                                break;
-                            }
-                            case 0:
-                            {
-                                is_working = false;
-                                break;
-                            }
-                            default:
-                            {
-                                std::cout << "Такая команда отсутствует! Повторите попытку!\n";
-                                break;
-                            }
-                        }
-                    }
-                    break;
+                    else std::cout << "Команда отсутствует! Попробуйте снова!\n";
                 }
-                case 1:
+                
+            }
+            else if(key == "1")
+            {
+                file_writer(output_path, input);
+                if(input_way == "file")
+                    is_working = false;
+                else
                 {
-                    auto result = symbol_remover(input);
-                    file_writer(output_path, result);
-                    if(input_way == "file")
+                    std::cout << "Хотите продолжить? 1 - Да, 0 - Нет\nВаш выбор: ";
+                    std::cin >> inner_key;
+                    if(inner_key == "1")
                     {
+                        input_way = "";
+                        std::cout << "Отлично!\n";
+                    }
+                    else if(inner_key == "0")
                         is_working = false;
-                    }
-                    else
-                    {
-                        std::cout << "Хотите продолжить? 1 - Да; 0 - Нет\nВаш выбор: ";
-                        std::cin >> inner_key;
-                        switch (inner_key)
-                        {
-                            case 1:
-                            {
-                                std::cout << "Отлично!\n";
-                                input_way = "";
-                                break;
-                            }
-                            case 0:
-                            {
-                                is_working = false;
-                                break;
-                            }
-                            default:
-                            {
-                                std::cout << "Такая команда отсутствует! Повторите попытку!\n";
-                                break;
-                            }
-                        }
-                    }
-                    break;
-                }
-                default:
-                {
-                    std::cout << "Такая команда отсутствует! Повторите попытку!\n";
-                    break;
+                    else std::cout << "Команда отсутствует! Попробуйте снова!\n";
                 }
             }
-        } 
+            else std::cout << "Команда отсутствует! Попробуйте снова!\n";
+        }
     }
     std::cout << "Хорошего дня!\n";
     return 0;
