@@ -32,7 +32,7 @@ bool valid_input(std::string& input)
 
 void file_reader(std::string path, std::string& read_to)
 {
-    std::ifstream file(path);
+    std::ifstream file(path); //
     file >> checker;
     if(!valid_input(checker)) 
     {
