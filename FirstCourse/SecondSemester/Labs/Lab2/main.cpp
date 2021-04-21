@@ -4,8 +4,8 @@
 
 const char first_out = '0';
 const char second_out = '5';
-const std::string input_path = "input.txt";
-const std::string output_path = "output.txt";
+const std::string input_path = "Lab2/input.txt";
+const std::string output_path = "Lab2/output.txt";
 std::string input_way = "";
 
 bool valid_input(std::string& input)
@@ -71,8 +71,9 @@ std::string symbol_remover(std::string& input)
 int main()
 {
     bool is_working = true;
-    std::string key, inner_key;
-    std::string input = "something";
+    std::string key, inner_key, rez;
+    std::string c_input = "";
+    std::string f_input = "";
     while(is_working)
     {
         if(input_way == "")
@@ -84,30 +85,31 @@ int main()
                 while(true)
                 {
                     std::cout << "Введите число для редактирования: ";
-                    std::cin >> input;
-                    if(valid_input(input)) break;
+                    std::cin >> c_input;
+                    if(valid_input(c_input)) break;
                     else std::cout << "Это не число! Попробуйте снова!\n";
                 }
+                rez = symbol_remover(c_input);
             }
             else if(key == "1")
             {
                 input_way = "file";
-                file_reader(input_path, input);
-                if(!valid_input(input)) 
+                file_reader(input_path, f_input);
+                if(!valid_input(f_input)) 
                 {
                     std::cout << "В файле не число! Измените содержимое файла и перезапустите программу!\n";
                     is_working = false;
                 }
+                rez = symbol_remover(f_input);
             }
             else std::cout << "Команда отсутствует! Попробуйте снова!\n";
         }
         else
         {
             key = output_menu();
-            input = symbol_remover(input);
             if(key == "0")
             {
-                std::cout << "Результат: " + input + "\n";
+                std::cout << "Результат: " + rez + "\n";
                 if(input_way == "file")
                     is_working = false;
                 else
@@ -127,7 +129,7 @@ int main()
             }
             else if(key == "1")
             {
-                file_writer(output_path, input);
+                file_writer(output_path, rez);
                 if(input_way == "file")
                     is_working = false;
                 else
