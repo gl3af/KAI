@@ -1,10 +1,10 @@
 #include <iostream>
 #include <fstream>
-#include <vector>
 
 const char predicate = 'a';
-const std::string input_path = "input.txt";
-const std::string output_path = "output.txt";
+const std::string d_in = "input.txt";
+const std::string d_out = "output.txt";
+std::string in, out;
 std::string input_way = "";
 std::string checker = "";
 int size = 0;
@@ -32,27 +32,40 @@ bool valid_input(std::string& input)
 
 void file_reader(std::string path, std::string& read_to)
 {
-    std::ifstream file(path); //
-    file >> checker;
-    if(!valid_input(checker)) 
-    {
-        std::cout << "Неверный ввод n! Измените значение в файле и перезапустите программу!\n";
-        is_working = false;
-    }
-    else size = std::stoi(checker);
-    getline(file, read_to);
-    if(read_to.size() != size) 
-    {
-        std::cout << "Строка имеет не n символов. Измените значение в файле и перезапустите программу!\n";
-        is_working = false;
-    }
+    std::ifstream file(path);
+    //if(file.is_open())
+    //{   
+        getline(file, checker);
+        if(!valid_input(checker)) 
+        {
+            std::cout << "Неверный ввод n! Измените значение в файле и перезапустите программу!\n";
+            is_working = false;
+        }
+        else size = std::stoi(checker);
+        getline(file, read_to);
+        if(read_to.size() != size) 
+        {
+            std::cout << "Строка имеет не n символов. Измените значение в файле и перезапустите программу!\n";
+            is_working = false;
+        }
+    //}
+    // //else
+    // {   std::cout << "Невозможно открыть файл по данному пути!\n";
+    //     input_way = "";
+    // }
     file.close();
 }
 
 void file_writer(std::string path, std::string& to_write)
 {
     std::ofstream file(path);
-    file << worker(to_write);
+    if(file.is_open())
+        file << worker(to_write);
+    else
+    {
+        std::cout << "Невозможно открыть файл по данному пути!\n";
+    }
+    
     file.close();
 }
 
@@ -61,7 +74,7 @@ std::string input_menu()
     std::string key;
     std::cout << "Доступные команды: \n" <<
         "0 - Ввод данных из консоли\n"  <<
-        "1 - Ввод данных из файла 'input.txt'\n" <<
+        "1 - Ввод данных из файла\n" <<
         "Ваш выбор: ";
     std::cin >> key;
 
@@ -73,7 +86,7 @@ std::string output_menu()
     std::string key;
     std::cout << "Доступные команды: \n" <<
         "0 - Вывод результата в консоль\n"  <<
-        "1 - Вывод результата в файл 'output.txt'\n" <<
+        "1 - Вывод результата в файл\n" <<
         "Ваш выбор: ";
     std::cin >> key;
 
@@ -114,7 +127,10 @@ int main()
             else if(key == "1")
             {
                 input_way = "file";
-                file_reader(input_path, input);
+                std::cout << "Укажите файл для ввода результатов работы программы[Введите d для выбора Lab4/input.txt]: ";
+                std::cin >> in;
+                if(in == "d") file_reader(d_in, input);
+                else file_reader(in, input);
             }
             else std::cout << "Команда отсутствует! Попробуйте снова!\n";
         }
@@ -133,7 +149,6 @@ int main()
                     if(inner_key == "1")
                     {
                         input_way = "";
-                        input.clear();
                         std::cout << "Отлично!\n";
                     }
                     else if(inner_key == "0")
@@ -144,7 +159,10 @@ int main()
             }
             else if(key == "1")
             {
-                file_writer(output_path, input);
+                std::cout << "Укажите файл для вывода результатов работы программы[Введите d для выбора Lab4/output.txt]: ";
+                std::cin >> out;
+                if(out == "d") file_writer(d_out, input);
+                else file_writer(out, input);
                 if(input_way == "file")
                     is_working = false;
                 else
@@ -154,7 +172,6 @@ int main()
                     if(inner_key == "1")
                     {
                         input_way = "";
-                        input.clear();
                         std::cout << "Отлично!\n";
                     }
                     else if(inner_key == "0")
